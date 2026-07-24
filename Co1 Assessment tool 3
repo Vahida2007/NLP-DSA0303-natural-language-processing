@@ -1,0 +1,167 @@
+Section 1: Intelligent Email, Password and Mobile Number Validator
+import re
+
+# User Input
+email = input("Enter Email: ")
+password = input("Enter Password: ")
+mobile = input("Enter Mobile Number: ")
+
+# Email Validation
+email_pattern = r'^[A-Za-z][A-Za-z0-9._]*@[A-Za-z]+\.(com|org|edu|net|in)$'
+
+# Password Validation
+password_pattern = r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%&!]).{8,}$'
+
+# Mobile Validation
+mobile_pattern = r'^[6-9]\d{9}$'
+
+# Email Result
+if re.fullmatch(email_pattern, email):
+    print("Valid Email")
+else:
+    print("Invalid Email")
+
+# Password Result
+if re.fullmatch(password_pattern, password):
+    print("Strong Password")
+else:
+    print("Weak Password")
+
+# Mobile Result
+if re.fullmatch(mobile_pattern, mobile):
+    print("Valid Mobile Number")
+else:
+    print("Invalid Mobile Number")
+sample input:
+Enter Email: vahida123@gmail.com
+Enter Password: Vahida@123
+Enter Mobile Number: 9876543210
+Output:
+Valid Email
+Strong Password
+Valid Mobile Number
+Section 2: DFA (Finite State Automata) Simulator
+# DFA Simulator
+
+transitions = {
+    'q0': {'a': 'q1', 'b': 'q0'},
+    'q1': {'a': 'q1', 'b': 'q2'},
+    'q2': {'a': 'q1', 'b': 'q0'}
+}
+
+start_state = 'q0'
+final_states = ['q2']
+
+while True:
+    string = input("\nEnter input string: ")
+
+    current_state = start_state
+    path = current_state
+
+    valid = True
+
+    for ch in string:
+        if ch not in ['a', 'b']:
+            valid = False
+            break
+
+        current_state = transitions[current_state][ch]
+        path += " -> " + current_state
+
+    if not valid:
+        print("Invalid Input")
+    else:
+        print("Transition Path:", path)
+
+        if current_state in final_states:
+            print("Accepted")
+        else:
+            print("Rejected")
+
+    choice = input("Test another string? (yes/no): ")
+    if choice.lower() != "yes":
+        break
+Sample Input
+Enter input string: aaab
+Output
+Transition Path:
+q0 -> q1 -> q1 -> q1 -> q2
+Accepted
+Section 3: Smart Pattern Matching Engine using Regular Expressions
+import re
+
+text = """
+Meeting on 12/09/2026
+Call 9876543210
+#NLP @OpenAI
+natural language processing
+"""
+
+while True:
+
+    print("\n----- MENU -----")
+    print("1. Search Date")
+    print("2. Search Phone Number")
+    print("3. Search Hashtag")
+    print("4. Search Mention")
+    print("5. Search Prefix")
+    print("6. Search Suffix")
+    print("7. Exit")
+
+    choice = int(input("Enter Choice: "))
+
+    if choice == 1:
+        result = re.findall(r'\b\d{2}/\d{2}/\d{4}\b', text)
+        print("Dates:", result)
+
+    elif choice == 2:
+        result = re.findall(r'\b[6-9]\d{9}\b', text)
+        print("Phone Numbers:", result)
+
+    elif choice == 3:
+        result = re.findall(r'#\w+', text)
+        print("Hashtags:", result)
+
+    elif choice == 4:
+        result = re.findall(r'@\w+', text)
+        print("Mentions:", result)
+
+    elif choice == 5:
+        prefix = input("Enter Prefix: ")
+        result = re.findall(r'\b' + prefix + r'\w*', text, re.IGNORECASE)
+        print(result)
+
+    elif choice == 6:
+        suffix = input("Enter Suffix: ")
+        result = re.findall(r'\b\w*' + suffix + r'\b', text, re.IGNORECASE)
+        print(result)
+
+    elif choice == 7:
+        print("Program Ended.")
+        break
+
+    else:
+        print("Invalid Choice")
+Sample Run
+----- MENU -----
+1. Search Date
+2. Search Phone Number
+3. Search Hashtag
+4. Search Mention
+5. Search Prefix
+6. Search Suffix
+7. Exit
+
+Enter Choice: 1
+
+Dates: ['12/09/2026']
+Enter Choice: 2
+
+Phone Numbers: ['9876543210']
+Enter Choice: 3
+
+Hashtags: ['#NLP']
+Enter Choice: 4
+
+Mentions: ['@OpenAI']
+
